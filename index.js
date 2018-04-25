@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native';
-import App from './App';
+import Root from './setup';
 
-AppRegistry.registerComponent('RideRoad', () => App);
+AppRegistry.registerComponent('RideRoad', () => Root);

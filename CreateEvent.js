@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { handleFormChangeEventName } from './actions';
 
 import {
     Platform,
@@ -9,25 +11,25 @@ import {
     Button,
     DatePickerAndroid
 } from 'react-native';
-class CreateEvent extends Component<Props> {
 
+class CreateEvent extends Component<Props> {
     constructor(props) {
         super(props);
         this.state = {
             date: ""
         };
     }
-    convertToDateString(year,month,day){
-        return day.toString()+"-"+month.toString()+"-"+year.toString();
+    convertToDateString(year, month, day) {
+        return day.toString() + "-" + month.toString() + "-" + year.toString();
     }
-    async openAndroidDatePicker  () {
+    async openAndroidDatePicker() {
         try {
             const { action, year, month, day } = await DatePickerAndroid.open({
                 date: new Date()
             });
             if (action !== DatePickerAndroid.dismissedAction) {
-                console.log("year",year)
-                this.setState({date:this.convertToDateString(year,month,day)});
+                console.log("year", year)
+                this.setState({ date: this.convertToDateString(year, month, day) });
             }
         } catch ({ code, message }) {
             console.warn('Cannot open date picker', message);
@@ -35,6 +37,7 @@ class CreateEvent extends Component<Props> {
     }
     render() {
         const { navigate } = this.props.navigation;
+        const {eventName, fromLocation,toLocation,startingDate,time,handleFormChangeEventName} =this.props;
         return (<View style={{
             flex: 1,
             flexDirection: 'column',
@@ -44,27 +47,30 @@ class CreateEvent extends Component<Props> {
             <Text>
                 Create Event
                     </Text>
-
+                    <Text>
+                Event Name
+                </Text>
+            <TextInput value={eventName}  onChangeText={(text) => handleFormChangeEventName(text)}
+                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+            />
             <Text>
                 From
                 </Text>
-            <TextInput
+            <TextInput value={fromLocation}
                 style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-
             />
             <Text>
                 To
-      </Text>
-            <TextInput
+            </Text>
+            <TextInput value={toLocation}
                 style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-
             />
             <Text>
                 Date
-      </Text>
+            </Text>
             <TextInput
                 style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                value={this.state.date}
+                value={startingDate}
             />
             <Button
                 title="Calendar"
@@ -75,12 +81,21 @@ class CreateEvent extends Component<Props> {
             <Text>
                 Time
             </Text>
-            <TextInput
+            <TextInput  value={time}
                 style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-
             />
         </View>
         )
     }
 }
-export default CreateEvent;
+const mapStateToProps = (state, ownProps) => {
+    return {
+      eventName: state.createEvent.eventName,
+      fromLocation: state.createEvent.fromLocation,
+      toLocation:state.createEvent.toLocation,
+      startingDate:state.createEvent.startingDate,
+      time:state.createEvent.time
+    }
+  };
+const mapDispatchToProps = {handleFormChangeEventName};
+export default connect(mapStateToProps,mapDispatchToProps)(CreateEvent);
