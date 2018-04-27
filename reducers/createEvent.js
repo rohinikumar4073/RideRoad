@@ -9,7 +9,7 @@ const createEvent = (state = initialState, action) => {
     switch (action.type) {
         case "HANDLE_FORM_CHANGE":
             return {...state,
-                eventName: action.eventName};
+              ... action.data};
             break;
 
         default:

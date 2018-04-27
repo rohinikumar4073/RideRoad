@@ -29,7 +29,7 @@ class CreateEvent extends Component<Props> {
             });
             if (action !== DatePickerAndroid.dismissedAction) {
                 console.log("year", year)
-                this.setState({ date: this.convertToDateString(year, month, day) });
+                this.props.handleFormChangeEventName({startingDate:this.convertToDateString(year, month, day) });
             }
         } catch ({ code, message }) {
             console.warn('Cannot open date picker', message);
@@ -50,19 +50,21 @@ class CreateEvent extends Component<Props> {
                     <Text>
                 Event Name
                 </Text>
-            <TextInput value={eventName}  onChangeText={(text) => handleFormChangeEventName(text)}
+            <TextInput value={eventName}  
+            onChangeText={(text) => handleFormChangeEventName({eventName:text})}
                 style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
             />
             <Text>
                 From
                 </Text>
-            <TextInput value={fromLocation}
+            <TextInput value={fromLocation} 
+            onChangeText={(text) => handleFormChangeEventName({fromLocation:text})}
                 style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
             />
             <Text>
                 To
             </Text>
-            <TextInput value={toLocation}
+            <TextInput value={toLocation}  onChangeText={(text) => handleFormChangeEventName({toLocation:text})}
                 style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
             />
             <Text>
@@ -70,6 +72,7 @@ class CreateEvent extends Component<Props> {
             </Text>
             <TextInput
                 style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                onChangeText={(text) => handleFormChangeEventName({startingDate:text})}
                 value={startingDate}
             />
             <Button
@@ -82,7 +85,9 @@ class CreateEvent extends Component<Props> {
                 Time
             </Text>
             <TextInput  value={time}
-                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                            onChangeText={(text) => handleFormChangeEventName({time:text})}
+
+                style={{ height: 40, borderColor: 'gray', borderWidth: 1 ,    alignSelf: 'stretch'            }}
             />
         </View>
         )
