@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { handleFormChangeEventName } from './actions';
+import DatePicker from 'react-native-datepicker'
 
 import {
     Platform,
@@ -11,7 +12,19 @@ import {
     Button,
     DatePickerAndroid
 } from 'react-native';
-
+const styles = StyleSheet.create({
+    headerStyle: {
+        fontWeight: 'bold',
+        fontSize: 20
+    },
+    labelStyle: {
+        fontWeight: 'bold',
+        fontSize: 16
+    },
+    textStyle:{
+        height: 40
+    }
+});
 class CreateEvent extends Component<Props> {
     constructor(props) {
         super(props);
@@ -19,75 +32,69 @@ class CreateEvent extends Component<Props> {
             date: ""
         };
     }
-    convertToDateString(year, month, day) {
-        return day.toString() + "-" + month.toString() + "-" + year.toString();
-    }
-    async openAndroidDatePicker() {
-        try {
-            const { action, year, month, day } = await DatePickerAndroid.open({
-                date: new Date()
-            });
-            if (action !== DatePickerAndroid.dismissedAction) {
-                console.log("year", year)
-                this.props.handleFormChangeEventName({startingDate:this.convertToDateString(year, month, day) });
-            }
-        } catch ({ code, message }) {
-            console.warn('Cannot open date picker', message);
-        }
-    }
+    
     render() {
         const { navigate } = this.props.navigation;
-        const {eventName, fromLocation,toLocation,startingDate,time,handleFormChangeEventName} =this.props;
+        const { eventName, fromLocation, toLocation, startingDate, time, handleFormChangeEventName } = this.props;
         return (<View style={{
             flex: 1,
             flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
+            padding: 10
         }}>
-            <Text>
+            <Text style={styles.headerStyle}>
                 Create Event
                     </Text>
-                    <Text>
+            <Text style={styles.labelStyle}>
                 Event Name
                 </Text>
-            <TextInput value={eventName}  
-            onChangeText={(text) => handleFormChangeEventName({eventName:text})}
-                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+            <TextInput value={eventName}
+                onChangeText={(text) => handleFormChangeEventName({ eventName: text })}
+                style={styles.textStyle}
             />
-            <Text>
+            <Text style={styles.labelStyle}>
                 From
                 </Text>
-            <TextInput value={fromLocation} 
-            onChangeText={(text) => handleFormChangeEventName({fromLocation:text})}
-                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+            <TextInput value={fromLocation}
+                onChangeText={(text) => handleFormChangeEventName({ fromLocation: text })}
+                style={styles.textStyle}
             />
-            <Text>
+            <Text  style={styles.labelStyle}>
                 To
             </Text>
-            <TextInput value={toLocation}  onChangeText={(text) => handleFormChangeEventName({toLocation:text})}
-                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+            <TextInput value={toLocation} 
+            onChangeText={(text) => handleFormChangeEventName({ toLocation: text })}
+                 style={styles.textStyle}
             />
-            <Text>
+            <Text style={styles.labelStyle}>
                 Date
             </Text>
-            <TextInput
-                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                onChangeText={(text) => handleFormChangeEventName({startingDate:text})}
-                value={startingDate}
+            <DatePicker
+                style={{ width: "100%" }}
+                date={startingDate}
+                mode="date"
+                placeholder="Select date"
+                format="YYYY-MM-DD"
+                minDate="2016-05-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                    dateIcon: {
+                        position: 'absolute',
+                        right: 0,
+                        top: 4,
+                        marginRight: 0
+                    },
+                    dateInput: {
+                        marginRight: 36
+                    }
+                }}
+                onDateChange={(date) => { handleFormChangeEventName({ startingDate: date }) }}
             />
-            <Button
-                title="Calendar"
-                onPress={() =>
-                    this.openAndroidDatePicker()
-                }
-            />
-            <Text>
+            <Text style={styles.labelStyle}>
                 Time
             </Text>
-            <TextInput  value={time}
-                            onChangeText={(text) => handleFormChangeEventName({time:text})}
-
-                style={{ height: 40, borderColor: 'gray', borderWidth: 1 ,    alignSelf: 'stretch'            }}
+            <TextInput   style={styles.textStyle} value={time}
+                onChangeText={(text) => handleFormChangeEventName({ time: text })}
             />
         </View>
         )
@@ -95,12 +102,12 @@ class CreateEvent extends Component<Props> {
 }
 const mapStateToProps = (state, ownProps) => {
     return {
-      eventName: state.createEvent.eventName,
-      fromLocation: state.createEvent.fromLocation,
-      toLocation:state.createEvent.toLocation,
-      startingDate:state.createEvent.startingDate,
-      time:state.createEvent.time
+        eventName: state.createEvent.eventName,
+        fromLocation: state.createEvent.fromLocation,
+        toLocation: state.createEvent.toLocation,
+        startingDate: state.createEvent.startingDate,
+        time: state.createEvent.time
     }
-  };
-const mapDispatchToProps = {handleFormChangeEventName};
-export default connect(mapStateToProps,mapDispatchToProps)(CreateEvent);
+};
+const mapDispatchToProps = { handleFormChangeEventName };
+export default connect(mapStateToProps, mapDispatchToProps)(CreateEvent);
