@@ -8,6 +8,12 @@ import Home from './Home'
 import CreateEvent from "./CreateEvent"
 const App = StackNavigator({
   Home: { screen: Home }, CreateEvent: { screen: CreateEvent }
-});
+},
+{
+  headerMode: 'none',
+  navigationOptions: {
+    headerVisible: false,
+  }
+ });
 
 export default App;

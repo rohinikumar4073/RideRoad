@@ -9,7 +9,7 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View, Button
+  View, Button,ImageBackground
 } from 'react-native';
 
 
@@ -49,10 +49,20 @@ class Home extends Component<Props> {
   }
   render() {
     const { navigate } = this.props.navigation;
-
+    const resizeMode="stretch";
     return (
       <View style={styles.container}>
-
+      <ImageBackground source={require('./yellowjersey.png')}  imageStyle={{
+          resizeMode,
+        }}
+        style={{
+          width: 420,
+          height:720,
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 30,
+        }}>
+<View>
         {this.state.name ? <Text style={styles.welcome}>{this.state.name}</Text>
           : <Text style={styles.welcome}> Please Login </Text>}
         <LoginButton
@@ -84,8 +94,10 @@ class Home extends Component<Props> {
             navigate('CreateEvent')
           }
         />
-        
+        </View>
+        </ImageBackground>
       </View>
+
     );
   }
 }
@@ -95,7 +107,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#555424',
   },
   welcome: {
     fontSize: 20,

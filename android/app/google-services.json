@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "197845269766",
+    "firebase_url": "https://rideroad-ffdf0.firebaseio.com",
+    "project_id": "rideroad-ffdf0",
+    "storage_bucket": "rideroad-ffdf0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:197845269766:android:cb4e86ab5230d1c3",
+        "android_client_info": {
+          "package_name": "com.rideroad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "197845269766-pnda9vt2f6g8j13pfu3thrkabgkk6ej7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7W-hKyh1a0-cZC-3UHD0qMK5ACnq3Vdo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

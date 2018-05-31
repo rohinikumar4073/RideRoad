@@ -141,6 +141,8 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.facebook.react:react-native:+'
+    compile 'com.google.firebase:firebase-core:15.0.0'
+
     // From node_modules
 }
 
@@ -162,3 +164,4 @@ buildscript {
         google()
     }
 }
+apply plugin: 'com.google.gms.google-services'
