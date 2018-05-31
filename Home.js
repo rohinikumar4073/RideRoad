@@ -11,7 +11,35 @@ import {
   Text,
   View, Button,ImageBackground
 } from 'react-native';
+import _ from 'lodash';
 
+import t from 'tcomb-form-native'; // 0.6.9
+t.form.Form.stylesheet.textbox.normal.borderColor='#f6f200' ;
+t.form.Form.stylesheet.textbox.normal.color='#f6f200' ;
+t.form.Form.stylesheet.controlLabel.normal.color='#f6f200' ;
+
+t.form.Form.stylesheet.textbox.normal.borderWidth = 0;
+t.form.Form.stylesheet.textbox.error.borderWidth = 0;
+t.form.Form.stylesheet.textbox.normal.marginBottom = 0;
+t.form.Form.stylesheet.textbox.error.marginBottom = 0;
+
+t.form.Form.stylesheet.textboxView.normal.borderWidth = 0;
+t.form.Form.stylesheet.textboxView.error.borderWidth = 0;
+t.form.Form.stylesheet.textboxView.normal.borderRadius = 0;
+t.form.Form.stylesheet.textboxView.error.borderRadius = 0;
+t.form.Form.stylesheet.textboxView.normal.borderBottomWidth = 1;
+t.form.Form.stylesheet.textboxView.error.borderBottomWidth = 1;
+t.form.Form.stylesheet.textboxView.normal.borderColor='#f6f200' ;
+t.form.Form.stylesheet.textbox.normal.borderBottomColor='#f6f200' ;
+
+const Form = t.form.Form;
+
+
+
+const User = t.struct({
+  username: t.String,
+  password: t.String
+});
 
 const FBSDK = require('react-native-fbsdk');
 const {
@@ -62,39 +90,12 @@ class Home extends Component<Props> {
           justifyContent: 'center',
           padding: 30,
         }}>
-<View>
-        {this.state.name ? <Text style={styles.welcome}>{this.state.name}</Text>
-          : <Text style={styles.welcome}> Please Login </Text>}
-        <LoginButton
-          publishPermissions={["publish_actions"]}
-          onLoginFinished={
-            (error, result) => {
-              if (error) {
-                alert("Login failed with error: " + result.error);
-              } else if (result.isCancelled) {
-                alert("Login was cancelled");
-              } else {
-                AccessToken.getCurrentAccessToken().then((data) => {
-                  const { accessToken } = data
-                  this.initUser(accessToken)
-                })
+<View  style={{
+          width: 300}}>
+          <Form type={User}  /> 
 
+  </View>
 
-                alert("Login was successful with permissions: " + result.grantedPermissions)
-              }
-            }
-          }
-          onLogoutFinished={() => alert("User logged out")} />
-
-        <Text style={styles.instructions}>
-        </Text>
-        <Button
-          title="Create Event"
-          onPress={() =>
-            navigate('CreateEvent')
-          }
-        />
-        </View>
         </ImageBackground>
       </View>
 
