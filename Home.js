@@ -9,14 +9,14 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View, Button,ImageBackground
+  View, Button, ImageBackground, Image
 } from 'react-native';
 import _ from 'lodash';
 
 import t from 'tcomb-form-native'; // 0.6.9
-t.form.Form.stylesheet.textbox.normal.borderColor='#f6f200' ;
-t.form.Form.stylesheet.textbox.normal.color='#f6f200' ;
-t.form.Form.stylesheet.controlLabel.normal.color='#f6f200' ;
+t.form.Form.stylesheet.textbox.normal.borderColor = '#f6f200';
+t.form.Form.stylesheet.textbox.normal.color = '#f6f200';
+t.form.Form.stylesheet.controlLabel.normal.color = '#f6f200';
 
 t.form.Form.stylesheet.textbox.normal.borderWidth = 0;
 t.form.Form.stylesheet.textbox.error.borderWidth = 0;
@@ -29,8 +29,8 @@ t.form.Form.stylesheet.textboxView.normal.borderRadius = 0;
 t.form.Form.stylesheet.textboxView.error.borderRadius = 0;
 t.form.Form.stylesheet.textboxView.normal.borderBottomWidth = 1;
 t.form.Form.stylesheet.textboxView.error.borderBottomWidth = 1;
-t.form.Form.stylesheet.textboxView.normal.borderColor='#f6f200' ;
-t.form.Form.stylesheet.textbox.normal.borderBottomColor='#f6f200' ;
+t.form.Form.stylesheet.textboxView.normal.borderColor = '#f6f200';
+t.form.Form.stylesheet.textbox.normal.borderBottomColor = '#f6f200';
 
 const Form = t.form.Form;
 
@@ -77,27 +77,41 @@ class Home extends Component<Props> {
   }
   render() {
     const { navigate } = this.props.navigation;
-    const resizeMode="stretch";
+    const resizeMode = "stretch";
     return (
-      <View style={styles.container}>
-      <ImageBackground source={require('./yellowjersey.png')}  imageStyle={{
-          resizeMode,
-        }}
+      <ImageBackground source={require('./yellowjerseybackground.png')} imageStyle={{
+        resizeMode,
+      }}
         style={{
           width: 420,
-          height:720,
+          height: 720,
           alignItems: 'center',
           justifyContent: 'center',
           padding: 30,
         }}>
-<View  style={{
-          width: 300}}>
-          <Form type={User}  /> 
-
-  </View>
-
-        </ImageBackground>
+      <View style={{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+        <View style={{ width: 300 }}>
+          <Form type={User} />
+        </View>    
+        <View style={{height:50}}>   
+        <View style={styles.login}>
+              <Image
+                style={{ width: 52, height: 50,marginRight:10 }}
+                source={require('./FB.png')}
+              /><Image
+                style={{ width: 50, height: 50 }}
+                source={require('./GOOGLE.png')}
+              />
+            </View>        
+            </View>
       </View>
+
+</ImageBackground>
 
     );
   }
@@ -107,19 +121,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#555424',
+    alignItems: 'center'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  login: {
+    flex: 1,
+    flexDirection: 'row',
+    height:70
+  }
 });
 
 export default Home;
