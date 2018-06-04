@@ -95,6 +95,10 @@ class Home extends Component<Props> {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
+       <Image
+                style={{  width: 300,height: 110 }}
+                source={require('./LOGO.png')}
+              />
         <View style={{ width: 300 }}>
           <Form type={User} />
         </View>    
